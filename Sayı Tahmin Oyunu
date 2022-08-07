@@ -1,0 +1,66 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class oyun {
+    public static void main(String[] args) {
+       int random=(int)(Math.random()*100) ;
+        //System.out.println(random);
+        Scanner xc=new Scanner(System.in);
+        System.out.print("Kaç hak kullanmak istiyorsun : ");
+        int whantedrights= xc.nextInt();
+        if (whantedrights > 0) {
+                int rights=0;
+                 int yanlis=0;
+
+             int[] wrong=new int[whantedrights];
+             boolean islost=true;
+             while (rights < whantedrights) {
+               Scanner scr = new Scanner(System.in);
+               System.out.print("tahmininiz giririniz(0-100 arasi) :");
+               int selected = scr.nextInt();
+
+               if ((selected < 0) || (selected > 100)) {
+
+                   yanlis++;
+                   if (yanlis == 2) {
+                       System.out.println("0-100 arasi iki defe sayi girmediniz icin kaybettiniz");
+                       break;
+                   }
+                   if (yanlis != 2) {
+                       System.out.println("lutfen 0-100 arasi bir sayi giriniz, bir daha yanlis girisinizde kaybedeceksiniz");
+                   }
+                   continue;
+
+               }
+               if (selected == random) {
+                   System.out.println("TEBRİKLER TAHMİN ETTİĞİN SAYI DOĞRUDUR :" + selected);
+                   wrong[rights] = selected;
+                   islost = true;
+                   break;
+               } else {
+                   islost = false;
+                   if (selected < random) {
+                       wrong[rights] = selected;
+                       rights++;
+                       System.out.println("HATA!!! GİRDİĞİN SAYI DOĞRU SAYIDAN DAHA KÜCÜKTÜR ");
+                       System.out.println("kalan hakkiniz : " + (whantedrights - rights));
+
+                   }
+                   if (selected > random) {
+                       wrong[rights] = selected;
+                       rights++;
+                       System.out.println("HATA!!! GİRDİĞİN SAYI DOĞRU SAYIDAN DAHA BÜYÜKTÜR ");
+                       System.out.println("kalan hakkiniz : " + (whantedrights - rights));
+                   }
+               }
+           }
+           if (!islost) {
+               System.out.println("oyun bitti kaybettiniz");
+           }
+           System.out.println("Tahmin ettiğin sayilar : " + Arrays.toString(wrong));
+       }
+       else if (whantedrights<=0){
+           System.out.println("haklar 0 dan buyuk olmalidir");
+       }
+    }
+}
